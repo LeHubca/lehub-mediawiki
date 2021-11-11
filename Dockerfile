@@ -22,5 +22,8 @@ RUN curl -O https://gitlab.com/hydrawiki/extensions/EmbedVideo/-/archive/v2.9.0/
   echo "wfLoadExtension( 'EmbedVideo' );" >> /load-extensions.php
 
 #### Enter your own extensions based on the above template below this line.
-# Your own extensions.
+RUN curl -O https://extdist.wmflabs.org/dist/extensions/VisualEditor-REL1_37-a14e606.tar.gz && \
+  tar -xzf VisualEditor-REL1_37-a14e606.tar.gz -C /var/www/html/extensions && \
+  rm VisualEditor-REL1_37-a14e606.tar.gz && \
+  echo "wfLoadExtension( 'VisualEditor' );" >> /load-extensions.php
 #### Enter your own extensions based on the above template above this line.
