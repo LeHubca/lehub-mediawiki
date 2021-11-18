@@ -1,5 +1,7 @@
-Starterkit Wiki
+Le Hub Wiki
 -----
+
+http://67.205.187.95:8080/index.php/Wiki-militant
 
 This project uses Docker and Docker Compose to set up a fully working Wiki based on [Mediawiki](https://www.mediawiki.org/wiki/MediaWiki).
 
