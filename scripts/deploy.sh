@@ -18,6 +18,7 @@ docker pull mediawiki
 echo ''
 echo '-----'
 echo 'Starting the environment.'
+docker build --progress=plain -f="Dockerfile" .
 docker-compose up -d --build
 if [[ -f LocalSettings.php ]]; then
   echo '(LocalSettings.php exists, just updating the installation with existing details.)'
