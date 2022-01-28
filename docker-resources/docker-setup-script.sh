@@ -37,5 +37,6 @@ cd extensions && \
 unzip EmbedVideo* && \
 rm EmbedVideo*zip && \
 mv EmbedVideo* EmbedVideo;
+echo "wfLoadExtension( 'EmbedVideo' );" >> /load-extensions.php
 echo ".."
 echo "."
