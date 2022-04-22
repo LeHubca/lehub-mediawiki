@@ -24,6 +24,7 @@ rm master.zip
 mv mediawiki-extensions-TinyMCE-master extensions/TinyMCE
 echo 'wfLoadExtension( "TinyMCE" );' >> /load-extensions.php
 echo '$wgTinyMCEEnabled = true;' >> /load-extensions.php
+echo '$wgTinyMCESettings = [".tox-tinymce" => ["toolbar+" => " | citation"]];' >> /load-extensions.php
 echo ".."
 echo "."
 
@@ -38,5 +39,13 @@ unzip EmbedVideo* && \
 rm EmbedVideo*zip && \
 mv EmbedVideo* EmbedVideo;
 echo "wfLoadExtension( 'EmbedVideo' );" >> /load-extensions.php
+echo ".."
+echo "."
+
+echo "."
+echo ".."
+echo "Installing EmbedVideo"
+# https://www.mediawiki.org/wiki/Extension:PdfHandler
+echo "wfLoadExtension( 'PdfHandler' );" >> /load-extensions.php
 echo ".."
 echo "."
