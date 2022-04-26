@@ -22,3 +22,13 @@ $wgFileExtensions = [
   'wav',
   'webm',
 ];
+
+wfLoadExtension( "Cite" );
+
+// https://stackoverflow.com/questions/71577367/in-mediawikis-tinymce-extension-how-to-enable-disable-buttons/72014409#72014409
+// https://blog.dcycle.com/blog/2022-04-22/mediawiki-customizing-tinymce/
+$wgTinyMCESettings = [
+  "#wpTextbox1" => [
+    "toolbar+" => 'reference',
+  ],
+];

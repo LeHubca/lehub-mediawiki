@@ -20,6 +20,18 @@ echo "."
 
 echo "."
 echo ".."
+echo "Downloading and installing cite"
+echo 'See https://www.mediawiki.org/wiki/Extension:Cite#Installation'
+echo 'https://stackoverflow.com/questions/71577367/in-mediawikis-tinymce-extension-how-to-enable-disable-buttons/72014409#72014409'
+curl -O -L https://github.com/wikimedia/mediawiki-extensions-Cite/archive/refs/heads/master.zip
+unzip master.zip
+rm master.zip
+mv mediawiki-extensions-Cite-master extensions/Cite
+echo ".."
+echo "."
+
+echo "."
+echo ".."
 echo "Downloading and installing EmbedVideo"
 # https://www.mediawiki.org/wiki/Extension:EmbedVideo#Installation
 curl -O https://gitlab.com/hydrawiki/extensions/EmbedVideo/-/archive/v2.9.0/EmbedVideo-v2.9.0.zip
