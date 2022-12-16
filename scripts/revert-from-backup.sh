@@ -34,9 +34,12 @@ if [ ! -d "$CANDIDATE/images" ]; then
   exit 1
 fi
 
+echo "Before importing a database, make a backup of the old one"
 ./scripts/make-backup.sh
 source ./.env
+echo "Import database $ID"
 docker-compose exec database /bin/bash -c "mysql --password=$MYSQL_PASSWORD -u wikiuser -e 'DROP DATABASE my_wiki;' && mysql --password=$MYSQL_PASSWORD -u wikiuser -e 'CREATE DATABASE my_wiki;' && mysql --password=$MYSQL_PASSWORD -u wikiuser my_wiki < /do-not-commit/backups/$ID/backup.sql"
+echo "Import files from $ID"
 docker-compose exec mediawiki /bin/bash -c "cp -r /do-not-commit/backups/$ID/images/* /var/www/html/images/"
 
 echo "Backup $ID imported."
