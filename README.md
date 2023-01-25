@@ -122,6 +122,13 @@ Now, every time you want to fetch the data from your stage environment, you woul
 
     ./scripts/get-database-from-remote.sh stage
 
+Elastic Search
+-----
+// $wgDisableSearchUpdate = true;
+docker-resources/load-extensions.php
+https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/README
+php /var/www/html/extensions/CirrusSearch/maintenance/UpdateSearchIndexConfig.php
+
 Resources
 -----
 

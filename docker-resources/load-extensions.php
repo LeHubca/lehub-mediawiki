@@ -32,3 +32,10 @@ $wgTinyMCESettings = [
     "toolbar+" => 'reference',
   ],
 ];
+
+// https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/README
+wfLoadExtension( 'Elastica' );
+wfLoadExtension( 'CirrusSearch' );
+// $wgDisableSearchUpdate = true;
+$wgCirrusSearchServers = [ 'elasticsearch' ];
+$wgSearchType = 'CirrusSearch';

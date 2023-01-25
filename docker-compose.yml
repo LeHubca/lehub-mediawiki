@@ -22,6 +22,19 @@ services:
       - "./do-not-commit:/do-not-commit"
       - "uploaded-files:/var/www/html/images"
       - "./docker-resources:/docker-resources"
+  elasticsearch:
+    # According to
+    # https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/README
+    # "Only Elasticsearch v6.8 is supported."
+    # but 6.8.23 gives me: "no matching manifest for linux/arm64/v8 in the manifest list entries"
+    image: elasticsearch:7.17.8
+    restart: always
+    # https://hub.docker.com/_/elasticsearch
+    ports:
+      - 9200
+      - 9300
+    environment:
+      discovery.type: single-node
   database:
     image: mariadb
     restart: always
