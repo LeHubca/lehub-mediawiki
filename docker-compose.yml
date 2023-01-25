@@ -27,7 +27,8 @@ services:
     # https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/README
     # "Only Elasticsearch v6.8 is supported."
     # but 6.8.23 gives me: "no matching manifest for linux/arm64/v8 in the manifest list entries"
-    image: elasticsearch:7.17.8
+    # 7.17.8 works on mac m1, but 6.8.23 requires an intel vm. 
+    image: elasticsearch:6.8.23
     restart: always
     # https://hub.docker.com/_/elasticsearch
     ports:
