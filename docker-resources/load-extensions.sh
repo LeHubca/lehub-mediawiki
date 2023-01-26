@@ -39,6 +39,24 @@ mv EmbedVideo* extensions/ && \
 cd extensions && \
 unzip EmbedVideo* && \
 rm EmbedVideo*zip && \
-mv EmbedVideo* EmbedVideo;
+mv EmbedVideo* EmbedVideo
+echo ".."
+echo "."
+
+pwd
+
+echo "."
+echo ".."
+echo "Downloading and installing Elastica and CirrusSearch"
+# https://www.mediawiki.org/wiki/Extension:CirrusSearch#Installation
+cd /var/www/html
+curl -O https://extdist.wmflabs.org/dist/extensions/CirrusSearch-REL1_39-d13de17.tar.gz
+tar -xzf CirrusSearch-REL1_39-d13de17.tar.gz -C /var/www/html/extensions
+rm CirrusSearch-REL1_39-d13de17.tar.gz
+cd /var/www/html
+curl -O https://extdist.wmflabs.org/dist/extensions/Elastica-REL1_39-1baee3b.tar.gz
+tar -xzf Elastica-REL1_39-1baee3b.tar.gz -C /var/www/html/extensions
+rm Elastica-REL1_39-1baee3b.tar.gz
+cd /var/www/html
 echo ".."
 echo "."

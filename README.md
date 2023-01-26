@@ -122,6 +122,15 @@ Now, every time you want to fetch the data from your stage environment, you woul
 
     ./scripts/get-database-from-remote.sh stage
 
+Elastic Search
+-----
+
+I have followed and automated the instructions
+
+* https://www.mediawiki.org/wiki/Extension:CirrusSearch#Configuration and
+* https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/docs/settings.txt
+* https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/README
+
 Resources
 -----
 
