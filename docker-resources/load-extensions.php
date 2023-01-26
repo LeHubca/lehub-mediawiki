@@ -38,6 +38,7 @@ wfLoadExtension( 'Elastica' );
 wfLoadExtension( 'CirrusSearch' );
 if (getenv('CIRRUS_HAS_BEEN_INSTALLED')) {
   $wgDisableSearchUpdate = false;
+  $cirrusSearchType = "CirrusSearch"
 }
 else {
   $wgDisableSearchUpdate = true;
