@@ -51,9 +51,25 @@ else
   echo 'Resetting admin password.'
   ./scripts/reset-password.sh admin
   echo ''
+
+  docker-compose exec -T mediawiki /bin/bash -c \
+    '/docker-resources/install-or-update-cirrus.sh'
+
+  NEED_TO_DEPLOY_AGAIN_BECAUSE_CIRRUS_WAS_JUST_INSTALLED=0
+
+  cat .env|grep CIRRUS_HAS_BEEN_INSTALLED || NEED_TO_DEPLOY_AGAIN_BECAUSE_CIRRUS_WAS_JUST_INSTALLED=1
+
+  # Cirrus is now installed, whether or not it was installed before.
+  cat .env|grep CIRRUS_HAS_BEEN_INSTALLED || echo "CIRRUS_HAS_BEEN_INSTALLED=1" >> .env
+
+  if [ "$NEED_TO_DEPLOY_AGAIN_BECAUSE_CIRRUS_WAS_JUST_INSTALLED" = 1 ]; then
+    echo "Cirrus has just been installed, we need to deploy again for"
+    echo "./docker-resources/install-or-update-cirrus.sh to perform some"
+    echo "extra tasks."
+    ./scripts/deploy.sh
+  fi
+
   echo '-----'
   echo 'Getting the login details.'
   ./scripts/uli.sh
 fi
-
-source ./scripts/lib/install-or-update-cirrus.source.sh

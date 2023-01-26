@@ -36,6 +36,11 @@ $wgTinyMCESettings = [
 // https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/README
 wfLoadExtension( 'Elastica' );
 wfLoadExtension( 'CirrusSearch' );
-// $wgDisableSearchUpdate = true;
+if (getenv('CIRRUS_HAS_BEEN_INSTALLED')) {
+  $wgDisableSearchUpdate = false;
+}
+else {
+  $wgDisableSearchUpdate = true;
+}
 $wgCirrusSearchServers = [ 'elasticsearch' ];
-$wgSearchType = 'CirrusSearch';
+$wgCirrusSearchServers = [ 'elasticsearch' ];
