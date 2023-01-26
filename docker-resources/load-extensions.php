@@ -44,4 +44,3 @@ else {
   $wgDisableSearchUpdate = true;
 }
 $wgCirrusSearchServers = [ 'elasticsearch' ];
-$wgCirrusSearchServers = [ 'elasticsearch' ];
