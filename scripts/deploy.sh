@@ -55,3 +55,5 @@ else
   echo 'Getting the login details.'
   ./scripts/uli.sh
 fi
+
+source ./scripts/lib/install-or-update-cirrus.source.sh
