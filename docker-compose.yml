@@ -14,6 +14,11 @@ services:
       LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
       # For use with LetsEncrypt, see README.md
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      # ./docker-resources/install-or-update-cirrus.sh must perform a bunch
+      # of actions which depend on whether or not Cirrus has already been
+      # installed, so we are tracking the installation status of Cirrus
+      # in the .env file and here.
+      CIRRUS_HAS_BEEN_INSTALLED: ${CIRRUS_HAS_BEEN_INSTALLED}
     ports:
       - ${DOCKERPORT}:80
     links:
@@ -60,11 +65,6 @@ services:
       MYSQL_USER: wikiuser
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
-      # ./docker-resources/install-or-update-cirrus.sh must perform a bunch
-      # of actions which depend on whether or not Cirrus has already been
-      # installed, so we are tracking the installation status of Cirrus
-      # in the .env file and here.
-      CIRRUS_HAS_BEEN_INSTALLED: ${CIRRUS_HAS_BEEN_INSTALLED}
 
 volumes:
   uploaded-files:

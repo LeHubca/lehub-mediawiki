@@ -8,9 +8,11 @@ echo " =>"
 echo " => INSTALLING CIRRUS!"
 echo " =>"
 
+/docker-resources/test-communication-with-elasticsearch.sh
+
 MW_INSTALL_PATH="/var/www/html"
 
-if [ "$CIRRUS_HAS_BEEN_INSTALLED" == 1 ]; then
+if [ "$CIRRUS_HAS_BEEN_INSTALLED" == "1" ]; then
   echo "We think Cirrus has already been installed because the"
   echo "CIRRUS_HAS_BEEN_INSTALLED environment variable is set to 1."
   echo "We will not do anything. Cirrus calculates the total word count"
@@ -26,7 +28,7 @@ if [ "$CIRRUS_HAS_BEEN_INSTALLED" == 1 ]; then
   echo "It is not clear how this number is updated. Because when I add words to"
   echo "a page, the number stays the same."
 else
-  echo "We think Cirrus has already been installed because the"
+  echo "We think Cirrus has not been installed because the"
   echo "CIRRUS_HAS_BEEN_INSTALLED environment variable is not set to 1."
   echo "Following instructions at:"
   echo "https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/README"
