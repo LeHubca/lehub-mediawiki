@@ -125,11 +125,13 @@ Now, every time you want to fetch the data from your stage environment, you woul
 Elastic Search
 -----
 
-I have followed and automated the instructions
+I have followed and automated the instructions at:
 
 * https://www.mediawiki.org/wiki/Extension:CirrusSearch#Configuration and
 * https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/docs/settings.txt
 * https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/README
+
+After running "deploy", this can be tested by going to /index.php/Special:Statistics and confirming you see the total word count.
 
 Resources
 -----
