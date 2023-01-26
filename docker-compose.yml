@@ -24,6 +24,12 @@ services:
       - "./docker-resources:/docker-resources"
   elasticsearch:
     image: elasticsearch:7.17.8
+    # According to
+    # https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/README
+    # "Only Elasticsearch v6.8 is supported."
+    # but 6.8.23 gives me: "no matching manifest for linux/arm64/v8 in the manifest list entries"
+    # 7.17.8 works on mac m1, but 6.8.23 requires an intel vm.
+    image: elasticsearch:7.17.8
     restart: always
     # https://hub.docker.com/_/elasticsearch
     environment:
