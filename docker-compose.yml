@@ -23,6 +23,9 @@ services:
       - ${DOCKERPORT}:80
     links:
       - database
+      # Required, it seems, for docker-compose 1, but not 2. Link to
+      # alasticsearch will fail on the production server without this directive.
+      - elasticsearch
     volumes:
       - "./do-not-commit:/do-not-commit"
       - "uploaded-files:/var/www/html/images"
