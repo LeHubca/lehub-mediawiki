@@ -1,35 +1,5 @@
 version: '3'
 services:
-  mediawiki:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: always
-    environment:
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      DOCKERPORT: ${DOCKERPORT}
-      # For use with LetsEncrypt, see README.md
-      VIRTUAL_HOST: ${VIRTUAL_HOST}
-      # For use with LetsEncrypt, see README.md
-      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
-      # For use with LetsEncrypt, see README.md
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-      # ./docker-resources/install-or-update-cirrus.sh must perform a bunch
-      # of actions which depend on whether or not Cirrus has already been
-      # installed, so we are tracking the installation status of Cirrus
-      # in the .env file and here.
-      CIRRUS_HAS_BEEN_INSTALLED: ${CIRRUS_HAS_BEEN_INSTALLED}
-    ports:
-      - ${DOCKERPORT}:80
-    links:
-      - database
-      # Required, it seems, for docker-compose 1, but not 2. Link to
-      # alasticsearch will fail on the production server without this directive.
-      - elasticsearch
-    volumes:
-      - "./do-not-commit:/do-not-commit"
-      - "uploaded-files:/var/www/html/images"
-      - "./docker-resources:/docker-resources"
   elasticsearch:
     # Although
     # https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/README
@@ -56,6 +26,37 @@ services:
     # https://hub.docker.com/_/elasticsearch
     environment:
       discovery.type: single-node
+  mediawiki:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      DOCKERPORT: ${DOCKERPORT}
+      # For use with LetsEncrypt, see README.md
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      # For use with LetsEncrypt, see README.md
+      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
+      # For use with LetsEncrypt, see README.md
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      # ./docker-resources/install-or-update-cirrus.sh must perform a bunch
+      # of actions which depend on whether or not Cirrus has already been
+      # installed, so we are tracking the installation status of Cirrus
+      # in the .env file and here.
+      CIRRUS_HAS_BEEN_INSTALLED: ${CIRRUS_HAS_BEEN_INSTALLED}
+    ports:
+      - ${DOCKERPORT}:80
+    links:
+      - database
+      # Required, it seems, for docker-compose 1, but not 2. Link to
+      # alasticsearch will fail on the production server without this directive.# Furthermore, mediawiki needs to be defined after elasticsearch in the
+      # list of services.
+      - elasticsearch
+    volumes:
+      - "./do-not-commit:/do-not-commit"
+      - "uploaded-files:/var/www/html/images"
+      - "./docker-resources:/docker-resources"
   database:
     image: mariadb
     restart: always
