@@ -22,8 +22,6 @@ services:
     #     Elastica\Exception\ResponseException from line 179 of /var/www/html/extensions/Elastica/vendor/ruflin/elastica/src/Transport/Http.php: Validation Failed: 1: type is missing;2: type is missing;3: type is missing;4: type is missing;5: type is missing;6: type is missing;7: type is missing;8: type is missing;9: type is missing;10: type is missing;11: type is missing;12: type is missing;13: type is missing;14: type is missing;15: type is missing;16: type is missing;17: type is missing;
     # Finally, I am using ElasticSearch in Docker and the 6.8 version refuses to install on an M1 mac, making it necessary to run it on an Intel VM.
     image: elasticsearch:7.17.8
-    ports:
-      - "9200"
     restart: always
     # https://hub.docker.com/_/elasticsearch
     environment:
