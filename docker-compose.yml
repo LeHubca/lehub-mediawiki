@@ -24,6 +24,7 @@ services:
     image: elasticsearch:7.17.8
     expose:
       - "9200"
+      - "9300"
     restart: always
     # https://hub.docker.com/_/elasticsearch
     environment:
