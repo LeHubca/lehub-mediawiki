@@ -28,7 +28,7 @@ services:
     restart: always
     # https://hub.docker.com/_/elasticsearch
     environment:
-      discovery.type: single-node
+      - discovery.type=single-node
   mediawiki:
     build:
       context: .
