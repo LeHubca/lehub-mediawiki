@@ -1,5 +1,34 @@
 version: '3'
 services:
+  elasticsearch:
+    # Although
+    # https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/README
+    # says:
+    # > Only Elasticsearch v6.8 is supported.
+    #
+    # But https://www.mediawiki.org/wiki/Extension:CirrusSearch#Configuration says:
+    #
+    # > You must install the version of Elastic Search compatible with the version of > MediaWiki you are currently using:
+    # > MediaWiki 1.29.x - 1.30.x require Elasticsearch 5.3.x - 5.4.x.
+    # > MediaWiki 1.31.x - 1.32.x require Elasticsearch 5.5.x - 5.6.x.
+    # > MediaWiki 1.33.x - 1.38.x require Elasticsearch 6.5.x - 6.8.x. (6.8.23+ recommended)
+    # > MediaWiki 1.39+ require Elasticsearch 7.10.2 (6.8.23+ is possible using a compatibility layer)
+    #
+    # The above assertions seem contradictory to me, so I used version 7.17.8 of ElasticSearch for the following reasons:
+    #
+    # * First, that is the exact 7 version at https://hub.docker.com/_/elasticsearch
+    # * Next, version 6.8 gave me the following error when running "php $MW_INSTALL_PATH/extensions/CirrusSearch/maintenance/UpdateSearchIndexConfig.php" as required in https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/README:
+    #
+    #     Elastica\Exception\ResponseException from line 179 of /var/www/html/extensions/Elastica/vendor/ruflin/elastica/src/Transport/Http.php: Validation Failed: 1: type is missing;2: type is missing;3: type is missing;4: type is missing;5: type is missing;6: type is missing;7: type is missing;8: type is missing;9: type is missing;10: type is missing;11: type is missing;12: type is missing;13: type is missing;14: type is missing;15: type is missing;16: type is missing;17: type is missing;
+    # Finally, I am using ElasticSearch in Docker and the 6.8 version refuses to install on an M1 mac, making it necessary to run it on an Intel VM.
+    image: elasticsearch:7.17.8
+    expose:
+      - "9200"
+      - "9300"
+    restart: always
+    # https://hub.docker.com/_/elasticsearch
+    environment:
+      - discovery.type=single-node
   mediawiki:
     build:
       context: .
@@ -23,36 +52,14 @@ services:
       - ${DOCKERPORT}:80
     links:
       - database
+      # Required, it seems, for docker-compose 1, but not 2. Link to
+      # alasticsearch will fail on the production server without this directive.# Furthermore, mediawiki needs to be defined after elasticsearch in the
+      # list of services.
+      - elasticsearch
     volumes:
       - "./do-not-commit:/do-not-commit"
       - "uploaded-files:/var/www/html/images"
       - "./docker-resources:/docker-resources"
-  elasticsearch:
-    # Although
-    # https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/README
-    # says:
-    # > Only Elasticsearch v6.8 is supported.
-    #
-    # But https://www.mediawiki.org/wiki/Extension:CirrusSearch#Configuration says:
-    #
-    # > You must install the version of Elastic Search compatible with the version of > MediaWiki you are currently using:
-    # > MediaWiki 1.29.x - 1.30.x require Elasticsearch 5.3.x - 5.4.x.
-    # > MediaWiki 1.31.x - 1.32.x require Elasticsearch 5.5.x - 5.6.x.
-    # > MediaWiki 1.33.x - 1.38.x require Elasticsearch 6.5.x - 6.8.x. (6.8.23+ recommended)
-    # > MediaWiki 1.39+ require Elasticsearch 7.10.2 (6.8.23+ is possible using a compatibility layer)
-    #
-    # The above assertions seem contradictory to me, so I used version 7.17.8 of ElasticSearch for the following reasons:
-    #
-    # * First, that is the exact 7 version at https://hub.docker.com/_/elasticsearch
-    # * Next, version 6.8 gave me the following error when running "php $MW_INSTALL_PATH/extensions/CirrusSearch/maintenance/UpdateSearchIndexConfig.php" as required in https://gerrit.wikimedia.org/g/mediawiki/extensions/CirrusSearch/%2B/HEAD/README:
-    #
-    #     Elastica\Exception\ResponseException from line 179 of /var/www/html/extensions/Elastica/vendor/ruflin/elastica/src/Transport/Http.php: Validation Failed: 1: type is missing;2: type is missing;3: type is missing;4: type is missing;5: type is missing;6: type is missing;7: type is missing;8: type is missing;9: type is missing;10: type is missing;11: type is missing;12: type is missing;13: type is missing;14: type is missing;15: type is missing;16: type is missing;17: type is missing;
-    # Finally, I am using ElasticSearch in Docker and the 6.8 version refuses to install on an M1 mac, making it necessary to run it on an Intel VM.
-    image: elasticsearch:7.17.8
-    restart: always
-    # https://hub.docker.com/_/elasticsearch
-    environment:
-      discovery.type: single-node
   database:
     image: mariadb
     restart: always
