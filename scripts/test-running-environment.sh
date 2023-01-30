@@ -5,3 +5,7 @@
 set -e
 
 curl -L "http://$(docker-compose port mediawiki 80)"|grep "Main page"
+
+echo ""
+echo " => Done testing running environment."
+echo ""
