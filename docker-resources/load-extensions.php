@@ -1,6 +1,5 @@
 <?php
 
-<<<<<<< HEAD
 wfLoadExtension( "TinyMCE" );
 $wgTinyMCEEnabled = true;
 wfLoadExtension( 'EmbedVideo' );
@@ -33,7 +32,6 @@ $wgTinyMCESettings = [
     "toolbar+" => 'reference',
   ],
 ];
-=======
 // Remove the following line if you do not want to use custom code in your
 // project:
 
@@ -41,4 +39,3 @@ wfLoadExtension( "CustomExtension" );
 
 // wfLoadExtension( "TinyMCE" );
 // $wgTinyMCEEnabled = true;
->>>>>>> def1d11429d60ec5ca6e3e6d5d9c6e8f5127ae90
