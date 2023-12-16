@@ -3,6 +3,7 @@
 wfLoadExtension( "TinyMCE" );
 $wgTinyMCEEnabled = true;
 wfLoadExtension( 'EmbedVideo' );
+wfLoadExtension( 'UserPageViewTracker' );
 
 $wgFileExtensions = [
   'pdf',

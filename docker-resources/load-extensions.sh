@@ -10,6 +10,17 @@ set -e
 
 echo "."
 echo ".."
+echo "Downloading and installing UserPageViewTracker"
+# https://www.mediawiki.org/wiki/Extension:UserPageViewTracker
+curl -O https://extdist.wmflabs.org/dist/extensions/UserPageViewTracker-REL1_40-0cfc902.tar.gz
+tar -xzvf UserPageViewTracker*
+rm UserPageViewTracker*tar.gz
+mv UserPageViewTracker* extensions/
+echo ".."
+echo "."
+
+echo "."
+echo ".."
 echo "Downloading and installing TinyMCE"
 curl -O -L https://github.com/wikimedia/mediawiki-extensions-TinyMCE/archive/refs/heads/master.zip
 unzip master.zip
